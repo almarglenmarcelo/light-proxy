@@ -1,0 +1,36 @@
+version: '1'
+
+services:
+  mysqldb:
+    image: mysql:5.7-oracle
+    mem_limit: 512m
+    ports:
+      - "3306:3306"
+    networks:
+      - almardemonetwork
+    environment:
+      - MYSQL_ROOT_PASSWORD=slfdemo
+      - MYSQL_PASSWORD=slfdemo
+      - MYSQL_USER=slfdemo
+      - MYSQL_DATABASE=almardemo
+
+  side-l4j:
+    image: agmar28/light4j-sidecar:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      -  "8080:8080"
+    networks:
+      - almardemonetwork
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/almardemo?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: slfdemo
+      SPRING_DATASOURCE_PASSWORD: slfdemo
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA__HIBERNATE_DDL_AUTO: true
+      SPRING_JPA_DEFER-DATASOURCE-INITIALIZATION: true
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MySQL5InnoDBDialect
+
+networks:
+  almardemonetwork:

@@ -1,0 +1,1 @@
+docker run -d -p 8080:8080 --network almardemonetwork --name sidecar-l4j agmar28/light4j-sidecar:0.0.1-SNAPSHOT

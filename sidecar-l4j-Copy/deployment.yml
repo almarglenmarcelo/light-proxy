@@ -1,0 +1,59 @@
+#change the image tag before you deploy, if using minikube, please use any tag other than "latest"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: light-proxy
+          image: agmar28/light-proxy:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512"
+              #0.25 cpu
+              cpu: "250m"
+            limits:
+              #0.5 cpu
+              memory: "128Mi"
+              cpu: "500m"
+        - name: slfdemo-task-api
+          image: agmar28/light4j-sidecar:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+          resources:
+            requests:
+              memory: "64Mi"
+              #0.25 cpu
+              cpu: "250m"
+            limits:
+              #0.5 cpu
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: light-proxy-service
+spec:
+  selector:
+    app: light-proxy
+  type: NodePort
+  ports:
+  -   nodePort: 32000
+      port: 8080
+      targetPort: 8080

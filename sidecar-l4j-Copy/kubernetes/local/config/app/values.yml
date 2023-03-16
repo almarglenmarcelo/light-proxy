@@ -1,0 +1,4 @@
+body.enabled: true
+body.maxBuffers: 16000
+
+handler.basePath: /springboot-l4j/v1

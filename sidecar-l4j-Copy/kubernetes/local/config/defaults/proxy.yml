@@ -1,0 +1,4 @@
+
+hosts: http://localhost:9000
+rewriteHostHeader: true
+
