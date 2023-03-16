@@ -277,10 +277,10 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>agmar28/${parent.artifactId}:${parent.version}</name>
-						<bindings>
-							<binding>${basedir}/bindings/ca-certificates:/platform/bindings/ca-certificates</binding>
-						</bindings>
+						<name>agmar28/${project.artifactId}:${project.version}</name>
+<!--						<bindings>-->
+<!--							<binding>${basedir}/bindings/ca-certificates:/platform/bindings/ca-certificates</binding>-->
+<!--						</bindings>-->
 					</image>
 				</configuration>
 			</plugin>
