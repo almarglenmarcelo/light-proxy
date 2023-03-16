@@ -1,0 +1,12 @@
+enableVerifyJwt: false
+enableVerifyScope: true
+enableMockJwt: false
+jwt:
+  certificate:
+    '100': primary.crt
+    '101': secondary.crt
+  clockSkewInSeconds: 60
+logJwtToken: true
+logClientUserScope: false
+enableJwtCache: true
+bootstrapFromKeyService: false
